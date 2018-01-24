@@ -7,7 +7,8 @@ Handles one or multiple class/id names, timings, and eases.
 ```scss
 @import '../node_modules/scss-react-transition/scss-react-transition.scss';
 
-@include transition('test #test2', (opacity: (0.01, 1), max-height: (0, 30px)), 150 .1s, ease ease-out);```
+@include transition('test #test2', (opacity: (0.01, 1), max-height: (0, 30px)), 150 .1s, ease ease-out);
+```
 
 yields:
 
