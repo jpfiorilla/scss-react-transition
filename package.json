@@ -1,6 +1,6 @@
 {
   "name": "scss-react-transition",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A scss @mixin for building react-transition-group css markup",
   "main": "scss-react-transition.scss",
   "scripts": {
