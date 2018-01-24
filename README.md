@@ -7,8 +7,7 @@ Handles one or multiple class/id names, timings, and eases.
 ```scss
 @import '../node_modules/scss-react-transition/scss-react-transition.scss';
 
-@include transition('test #test2', (opacity: (0.01, 1), max-height: (0, 30px)), 100ms 150ms, ease ease-out);
-```
+@include transition('test #test2', (opacity: (0.01, 1), max-height: (0, 30px)), 150 .1s, ease ease-out);```
 
 yields:
 
@@ -21,7 +20,7 @@ yields:
 .test-enter.test-enter-active, #test2-enter#test2-enter-active {
   opacity: 1;
   max-height: 30px;
-  transition: 100ms ease;
+  transition: 150ms ease;
 }
 
 .test-exit, .test-leave, #test2-exit, #test2-leave {
@@ -32,7 +31,7 @@ yields:
 .test-exit.test-exit-active, .test-leave.test-leave-active, #test2-exit#test2-exit-active, #test2-leave#test2-leave-active {
   opacity: 0.01;
   max-height: 0;
-  transition: 150ms ease-out;
+  transition: 0.1s ease-out;
 }
 ```
 
