@@ -1,0 +1,18 @@
+{
+  "name": "scss-react-transition",
+  "version": "0.1.0",
+  "description": "A scss @mixin for building react-transition-group css markup",
+  "main": "scss-react-transition.scss",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "scss",
+    "react-transition-group",
+    "css",
+    "transition",
+    "react-transition"
+  ],
+  "author": "jpfiorilla",
+  "license": "ISC"
+}

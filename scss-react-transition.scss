@@ -1,0 +1,106 @@
+@function stripUnit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+  @return $number;
+}
+
+@function split($string, $separator) {
+  $split-arr: ();
+  $index: str-index($string, $separator);
+  @while $index != null {
+    $item: str-slice($string, 1, $index - 1);
+    $split-arr: append($split-arr, $item);
+    $string: str-slice($string, $index + 1);
+    $index: str-index($string, $separator);
+  }
+  $split-arr: append($split-arr, $string);
+
+  @return $split-arr;
+}
+
+@function classify($class) {
+  $selectors: (
+    '.',
+    '#'
+  );
+  @if not index($selectors, str-slice($class, 1, 1)) {
+    $class: '.#{$class}';
+  }
+  @return $class;
+}
+
+@function millify($num) {
+  @if unitless($num) {
+    $num: #{$num}ms;
+  }
+  @return $num;
+}
+
+@mixin transition($classes, $props, $times: 150ms, $eases: ease, $important:null) {
+  $ease1: nth($eases, 1);
+  $ease2: '';
+  @if length($eases) < 2 {
+    $ease2: nth($eases, 1);
+  } @else {
+    $ease2: nth($eases, 2);
+  }
+
+  $time1: millify(nth($times, 1));
+  $time2: '';
+  @if length($times) < 2 {
+    $time2: millify(nth($times, 1));
+  } @else {
+    $time2: millify(nth($times, 2));
+  }
+
+  @if type-of($classes) == 'string' {
+    $classes: split($classes, ' ');
+  }
+
+  $class: classify(nth($classes, 1));
+  $enterClass: #{$class}-enter;
+  $enterActiveClass: #{$class}-enter#{$class}-enter-active;
+  $exitClass: #{'#{$class}-exit, #{$class}-leave'};
+  $exitActiveClass: #{'#{$class}-exit#{$class}-exit-active, #{$class}-leave#{$class}-leave-active'};
+
+  @if length($classes) > 1 {
+    @for $i from 2 through length($classes) {
+      $class: classify(nth($classes, $i));
+
+      $enterClass: append($enterClass, #{', #{$class}-enter'});
+      $enterActiveClass: append(
+        $enterActiveClass,
+        #{', #{$class}-enter#{$class}-enter-active'}
+      );
+      $exitClass: append($exitClass, #{', #{$class}-exit, #{$class}-leave'});
+      $exitActiveClass: append(
+        $exitActiveClass,
+        #{', #{$class}-exit#{$class}-exit-active, #{$class}-leave#{$class}-leave-active'}
+      );
+    }
+  }
+
+  #{$enterClass} {
+    @each $prop, $value in $props {
+      #{$prop}: nth($value, 1);
+    }
+  }
+  #{$enterActiveClass} {
+    @each $prop, $value in $props {
+      #{$prop}: nth($value, 2);
+    }
+    transition: $time1 $ease1;
+  }
+  #{$exitClass} {
+    @each $prop, $value in $props {
+      #{$prop}: nth($value, 2);
+    }
+  }
+  #{$exitActiveClass} {
+    @each $prop, $value in $props {
+      #{$prop}: nth($value, 1);
+    }
+    transition: $time2 $ease2;
+  }
+}
