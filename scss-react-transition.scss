@@ -37,6 +37,22 @@
   @return $num;
 }
 
+@function normalizeArgs($list) {
+  $newList: (nth($list, 1));
+  @for $i from 2 through 4 {
+    @if length($list) >= $i {
+      $newList: append($newList, nth($list, $i));
+    } @else if $i == 3 {
+      $newList: append($newList, nth($list, 2));
+    } @else if $i == 4 and not (length($list) >= 3 and nth($list, 3) == null) {
+      $newList: append($newList, nth($list, 1));
+    } @else {
+      $newList: append($newList, null);
+    }
+  }
+  @return $newList;
+}
+
 @mixin transition($classes, $props, $times: 150ms, $eases: ease, $important:null) {
   $ease1: nth($eases, 1);
   $ease2: '';
@@ -83,23 +99,23 @@
 
   #{$enterClass} {
     @each $prop, $value in $props {
-      #{$prop}: nth($value, 1);
+      #{$prop}: nth(normalizeArgs($value), 1);
     }
   }
   #{$enterActiveClass} {
     @each $prop, $value in $props {
-      #{$prop}: nth($value, 2);
+      #{$prop}: nth(normalizeArgs($value), 2);
     }
     transition: $time1 $ease1;
   }
   #{$exitClass} {
     @each $prop, $value in $props {
-      #{$prop}: nth($value, 2);
+      #{$prop}: nth(normalizeArgs($value), 3);
     }
   }
   #{$exitActiveClass} {
     @each $prop, $value in $props {
-      #{$prop}: nth($value, 1);
+      #{$prop}: nth(normalizeArgs($value), 4);
     }
     transition: $time2 $ease2;
   }
