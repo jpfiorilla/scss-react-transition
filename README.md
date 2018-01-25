@@ -13,31 +13,23 @@ Handles one or multiple class/id names, timings, and eases.
 yields:
 
 ```css
-.test-enter,
-#test2-enter {
+.test-enter, #test2-enter {
   opacity: 0.01;
   max-height: 0;
 }
 
-.test-enter.test-enter-active,
-#test2-enter#test2-enter-active {
+.test-enter.test-enter-active, #test2-enter#test2-enter-active {
   opacity: 1;
   max-height: 30px;
   transition: 150ms ease;
 }
 
-.test-exit,
-.test-leave,
-#test2-exit,
-#test2-leave {
+.test-exit, .test-leave, #test2-exit, #test2-leave {
   opacity: 1;
   max-height: 20px;
 }
 
-.test-exit.test-exit-active,
-.test-leave.test-leave-active,
-#test2-exit#test2-exit-active,
-#test2-leave#test2-leave-active {
+.test-exit.test-exit-active, .test-leave.test-leave-active, #test2-exit#test2-exit-active, #test2-leave#test2-leave-active {
   opacity: 0.01;
   max-height: 0;
   transition: 0.1s ease-out;
@@ -45,6 +37,13 @@ yields:
 ```
 
 (It does both `-exit` and `-leave` for the out transitions because they changed the class names in the React 16 version.)
+
+| Argument        | Default value | Default unit              | Required |
+| --------------- | ------------- | ------------------------- | -------- |
+| Classnames      | none          | string or list            | yes      |
+| Props           | none          | list                      | yes      |
+| Transition time | 150ms         | ms if unitless, accepts s | no       |
+| Transition ease | ease          | an ease type              | no       |
 
 ## Intro animation only
 
